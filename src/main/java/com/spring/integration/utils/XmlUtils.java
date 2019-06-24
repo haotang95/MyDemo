@@ -13,6 +13,9 @@ import java.util.List;
 
 public class XmlUtils {
 
+    public static final String STR = " xmlns:json='http://james.newtonking.com/projects/json'";
+
+    public static final String TOARRAY = " json:Array='true'";
 
     public static JSONObject xml2Json(String xmlStr) throws JDOMException, IOException {
         if (StringUtils.isEmpty(xmlStr)) {
@@ -28,6 +31,20 @@ public class XmlUtils {
         json.put(root.getName(), iterateElement(root));
 
         return json;
+    }
+
+    public static String makeField2List(String xml, String... fields) throws Exception {
+        xml = xml.replaceAll("\\\n", "");
+        byte[] xmlBytes = xml.getBytes("UTF-8");
+        InputStream is = new ByteArrayInputStream(xmlBytes);
+        SAXBuilder sb = new SAXBuilder();
+        Document doc = sb.build(is);
+        Element root = doc.getRootElement();
+        xml = xml.replaceAll("<" + root.getName() + ">", "<" + root.getName() + STR + ">");
+        for (String field : fields){
+            xml = xml.replaceAll(field, field.substring(0, field.length() - 1) + TOARRAY + ">");
+        }
+        return xml;
     }
 
     private static JSONObject iterateElement(Element element) {
@@ -78,7 +95,9 @@ public class XmlUtils {
             }
             bos.close();
             String xml = bos.toString();
+            xml = makeField2List(xml,"<ResultCode>");
             System.out.println(xml);
+
             JSONObject jsonObject = xml2Json(xml);
             System.out.println(jsonObject.toJSONString());
 
@@ -87,6 +106,8 @@ public class XmlUtils {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JDOMException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
