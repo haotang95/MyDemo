@@ -11,12 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/demo")
 public class DemoController {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     @GetMapping("/setValue")
     public String setValue(){
-        new RedisUtil().set("test","testvalue");
+        RedisUtil.set("test","testvalue");
         return "success";
     }
 }
