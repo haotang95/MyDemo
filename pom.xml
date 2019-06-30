@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.spring</groupId>
-    <artifactId>integration</artifactId>
+    <artifactId>Integration</artifactId>
     <version>1.0.1</version>
     <name>Integration</name>
     <description>Spring Boot Integration Redis RabbitMQ</description>
