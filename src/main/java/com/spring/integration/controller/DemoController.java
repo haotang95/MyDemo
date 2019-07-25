@@ -1,6 +1,7 @@
 package com.spring.integration.controller;
 
 import com.spring.integration.entity.Demo;
+import com.spring.integration.utils.PropertiesFileUtil;
 import com.spring.integration.utils.RedisUtil;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +16,12 @@ public class DemoController {
 
     @GetMapping("/setValue")
     public String setValue(){
-        RedisUtil.set("test","testvalue");
-        Demo demo = new Demo();
-        demo.setName("fuck");
-        log.info("demo = {}", demo);
+//        RedisUtil.set("test","testvalue");
+//        Demo demo = new Demo();
+//        demo.setName("fuck");
+//        log.info("demo = {}", demo);
+        String str = PropertiesFileUtil.get("logging.level.root");
+        System.out.println(str);
         return "success";
     }
 }

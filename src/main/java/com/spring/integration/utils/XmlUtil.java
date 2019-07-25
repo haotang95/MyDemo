@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class XmlUtils {
+public class XmlUtil {
 
     public static final String STR = " xmlns:json='http://james.newtonking.com/projects/json'";
 
