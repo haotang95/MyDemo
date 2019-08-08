@@ -1,9 +1,6 @@
 package com.spring.integration.controller;
 
-import com.spring.integration.entity.Demo;
 import com.spring.integration.utils.PropertiesFileUtil;
-import com.spring.integration.utils.RedisUtil;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
