@@ -5,6 +5,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Administrator
@@ -24,13 +25,32 @@ public class RedisUtil {
       * @Author tangh
       * @Date 2019/6/28 11:45
       */
-    @PostConstruct
+    @PostConstruct//用构造方法也可以实现
     public void init(){
         redisUtil=this;
         redisUtil.redisTemplate = this.redisTemplate;
     }
 
-    public static void set(String key, String value) {
+    public static Object getObject(Object key){
+        Object value = getRedisTemplate().opsForValue().get(key);
+        return value;
+    }
+
+
+    public static String getString(String key){
+        Object value = getRedisTemplate().opsForValue().get(key);
+        return value == null ? null : value.toString();
+    }
+
+    public static void setObject(Object key, Object value){
+        getRedisTemplate().opsForValue().set(key, value);
+    }
+
+    public static void setObjectWithExprie(Object key, Object value, long exprie, TimeUnit unit){
+        getRedisTemplate().opsForValue().set(key, value, exprie, unit);
+    }
+
+    public static void setString(String key, String value) {
         getRedisTemplate().opsForValue().set(key, value);
     }
 
